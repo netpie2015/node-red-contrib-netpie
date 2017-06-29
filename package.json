@@ -1,0 +1,14 @@
+{
+  "name": "netpie-microgear",
+  "version": "1.0.0",
+  "description": "node-red node to connect to netpie",
+  "main": "netpie-microgear.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chavee Issariyapat <i@chavee.com>",
+  "license": "ISC",
+  "dependencies": {
+    "microgear": "^0.7.5"
+  }
+}
