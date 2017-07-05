@@ -1,16 +1,24 @@
 module.exports = function(RED) {
 	var Microgear = require("microgear");
 
-
     function NetpieMicrogearNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
+
+        if (!config.key || !config.secret || !config.appid) {
+            node.error("appid, key and secret are required.");
+            return;
+        }
 
         node.mg = Microgear.create({
         	key    : config.key,
         	secret : config.secret,
         	alias  : config.alias || null
         });
+
+        node.cachePath = 'microgear-'+node.id+'.token';
+        node.mg.setCachePath(node.cachePath);
+        node.log("path = "+node.cachePath);
 
         node.mg.on('connected', function() {
 		    node.log('microgear connected');
@@ -41,15 +49,30 @@ module.exports = function(RED) {
         	}
         });
 
-		node.on('close', function(done) {
-		    node.mg.disconnect();
-		    node.log('microgear disconnected');
-      		node.status({fill: 'red', shape: 'ring', text: 'disconnected'});
-
-	      	setTimeout(function () {
-	      		delete node.mg;
-	      		done();
-	    	}, 500);
+		node.on('close', function(removed, done) {
+            function fanalize() {
+                setTimeout(function () {
+                    delete node.mg;
+                    done();
+                }, 500);
+            }
+            node.mg.disconnect();
+            node.status({fill: 'red', shape: 'ring', text: 'disconnected'});
+            node.log('microgear disconnected');
+            if (typeof(removed)=='function') { // handle node-red below v0.17
+                done = remove;
+                remove = false;
+            }
+            if (removed) {
+                node.log('revoking access token');
+                node.mg.resetToken(function() {
+                    require('fs').unlinkSync(node.cachePath);
+                    fanalize();
+                });
+            }
+            else {
+                fanalize();
+            }
 	    });
 
     }
