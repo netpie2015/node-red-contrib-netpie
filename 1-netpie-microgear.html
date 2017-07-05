@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    RED.nodes.registerType('microgear',{
+        category: 'netpie',
+        color: '#a6bbff',
+        defaults: {
+            name :  {value: "microgear"}, 
+            appid: {value: ""},
+            key: {value: ""},      
+            secret: {value: ""},  
+            alias: {value: ""},  
+            topics: {value: "/#"},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "netpie.png",
+        label: function() {
+            return this.name||"microgear";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="microgear">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-appid"><i class="icon-cog"></i> App ID</label>
+        <input type="text" id="node-input-appid" placeholder="App ID">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-key"><i class="icon-cog"></i> Key</label>
+        <input type="text" id="node-input-key" placeholder="Key">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-secret"><i class="icon-cog"></i> Secret</label>
+        <input type="text" id="node-input-secret" placeholder="Secret">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-alias"><i class="icon-cog"></i> Alias</label>
+        <input type="text" id="node-input-alias" placeholder="Alias">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-topics"><i class="icon-cog"></i> Topics</label>
+        <input type="text" id="node-input-topics" placeholder="List of subcscribed topics e.g. /home/+,/">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="microgear">
+    <p>NETPIE Microgear node</p>
+</script>

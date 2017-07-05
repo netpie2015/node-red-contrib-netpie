@@ -9,6 +9,7 @@
   "author": "Chavee Issariyapat <i@chavee.com>",
   "license": "ISC",
   "dependencies": {
-    "microgear": "^0.7.5"
+    "microgear": "^0.7.5",
+    "restler": "^3.4.0"
   }
 }

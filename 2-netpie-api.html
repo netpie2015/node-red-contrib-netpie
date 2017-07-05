@@ -1,0 +1,57 @@
+<script type="text/javascript">
+    RED.nodes.registerType('api',{
+        category: 'netpie',
+        color: '#a6bbff',
+        defaults: {
+            name :  {value: "api"}, 
+            method: {value: "GET"},
+            resource: {value: "microgear"},
+            appid: {value: ""},
+            auth: {value: ""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "netpie.png",
+        label: function() {
+            return this.name||"api";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="api">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-method"><i class="icon-cog"></i> Method</label>
+        <select id="node-input-method">
+            <option value="PUT">PUT</option>
+            <option value="GET">GET</options>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-resource"><i class="icon-cog"></i> Resource</label>
+        <select id="node-input-resource">
+            <option value="microgear">microgear</option>
+            <option value="topic">topic</options>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-appid"><i class="icon-cog"></i> App ID</label>
+        <input type="text" id="node-input-appid" placeholder="App ID">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-auth"><i class="icon-cog"></i> Auth</label>
+        <input type="text" id="node-input-auth" placeholder="KEY:SECRET">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="api">
+    <p>NETPIE API node</p>
+</script>
