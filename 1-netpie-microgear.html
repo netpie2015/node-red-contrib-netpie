@@ -52,5 +52,26 @@
 </script>
 
 <script type="text/x-red" data-help-name="microgear">
-    <p>NETPIE Microgear node</p>
+    <p>A microgear node to connect to NETPIE.io.</p>
+ 
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>topic<span class="property-type">string</span></dt>
+        <dd>The topic of the incoming message.</dd>
+
+        <dt>topayloadpic<span class="property-type">string</span></dt>
+        <dd>The message payload.</dd>
+    </dl>
+ 
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>topic<span class="property-type">string</span></dt>
+        <dd>The target topic to publish a message.</dd>
+
+        <dt>payload<span class="property-type">string</span></dt>
+        <dd>The message payload.</dd>
+    </dl>
+ 
+    <h3>Details</h3>
+    <p>The rest publish node can be pressed to publish a message when configured with a specific topic and payload value.</p>
 </script>

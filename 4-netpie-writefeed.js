@@ -17,10 +17,6 @@ module.exports = function(RED) {
 	
 	    node.on('input', function(msg) {
 	    	var payload = config.dataType=='str'?config.data:(msg[config.data]||'');
-
-console.log('https://api.netpie.io/feed/'+config.feedid+'?apikey='+config.apikey);
-console.log("data="+payload.toString());
-
 			rest.put('https://api.netpie.io/feed/'+config.feedid+'?apikey='+config.apikey, {
 				headers: {"Content-Type": "text/plain"},
 				data: {data: payload.toString()}

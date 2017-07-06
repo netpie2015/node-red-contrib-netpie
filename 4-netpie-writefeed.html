@@ -77,7 +77,6 @@
                 });
             }
         }
-
     });
 </script>
 
@@ -106,5 +105,12 @@
 </script>
 
 <script type="text/x-red" data-help-name="writefeed">
-    <p>NETPIE WriteFeed node</p>
+    <p>Write a feed data via REST API.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt class="optional">payload<span class="property-type">string</span></dt>
+        <dd>The data to be recorded. The format is of the form<br><br> temp:24.6,humid:62.5,light:9.2<br><br>Will be overrided if the data type in the nodeis is set to string.</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>For the testing purpose, a writefeed node comes with a button for manually sending the data into a feed. The button works only if the node is configured with a specific payload value.</p>
 </script>

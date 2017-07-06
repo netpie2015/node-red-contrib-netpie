@@ -120,5 +120,14 @@
 </script>
 
 <script type="text/x-red" data-help-name="rest publish">
-    <p>NETPIE REST Publish node</p>
+    <p>Publish a message via REST API to a specific topic. The topic can be specified in msg.topic or manually fixed as a string in the node configuration.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt class="optional">payload<span class="property-type">string</span></dt>
+        <dd>The target topic. Will be overrided if the topic type in the nodeis is set to string.</dd>
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>The message payload. Will be overrided if the payload type in the node is set to string</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>The rest publish node can be pressed to publish a message when configured with a specific topic and payload value.</p>
 </script>

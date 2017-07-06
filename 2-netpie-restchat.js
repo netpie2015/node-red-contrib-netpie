@@ -17,7 +17,6 @@ module.exports = function(RED) {
         var node = this;
 	
 	    node.on('input', function(msg) {
-	    	node.log(JSON.stringify(config));
 	    	var auth = config.auth.split(':');
 	    	var alias = config.aliasType=='str'?config.alias:(msg[config.alias]||'');
 	    	var payload = config.payloadType=='str'?config.payload:(msg[config.payload]||'');
@@ -25,7 +24,7 @@ module.exports = function(RED) {
 				headers: {"Content-Type": "text/plain"},
 				username: auth[0],
 				password: auth[1],
-				data: payload.toString(),
+				data: payload.toString()
 			}).on('complete', function(data) {
 				var msg = {
 	        		topic : "&status",
