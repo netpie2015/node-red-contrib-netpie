@@ -10,7 +10,7 @@ module.exports = function(RED) {
 		}
 	}
 
-    function NetpieChatAPINode(config) {
+    function NetpieRESTChatNode(config) {
     	var rest = require('restler');
 
         RED.nodes.createNode(this, config);
@@ -36,5 +36,5 @@ module.exports = function(RED) {
 			});
         });
     }
-    RED.nodes.registerType("chat api",NetpieChatAPINode);
+    RED.nodes.registerType("rest chat",NetpieRESTChatNode);
 }

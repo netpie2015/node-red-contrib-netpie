@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('chat api',{
+    RED.nodes.registerType('rest chat',{
         category: 'netpie',
         color: '#dddd88',
         defaults: {
-            name :  {value: "chat api"}, 
+            name :  {value: "rest chat"}, 
             appid: {value: ""},
             auth: {value: ""},
             alias: {value: ""},
@@ -16,7 +16,7 @@
         icon: "netpie.png",
         align: "right",
         label: function() {
-            return this.name||"chat api";
+            return this.name||"rest chat";
         },
 
         oneditprepare: function() {
@@ -54,9 +54,7 @@
                 typeField: $("#node-input-payloadType"),
                 types:['msg','str']
             });
-
             $("#node-input-payload").typedInput('type',this.payloadType);
-
         },
 
         label: function() {
@@ -108,7 +106,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="chat api">
+<script type="text/x-red" data-template-name="rest chat">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -138,6 +136,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="chat api">
-    <p>NETPIE Chat API node</p>
+<script type="text/x-red" data-help-name="rest chat">
+    <p>NETPIE REST Chat node</p>
 </script>
