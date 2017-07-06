@@ -10,14 +10,13 @@ module.exports = function(RED) {
 		}
 	}
 
-    function NetpiePublishAPINode(config) {
+    function NetpieRESTPublishNode(config) {
     	var rest = require('restler');
 
         RED.nodes.createNode(this, config);
         var node = this;
 	
 	    node.on('input', function(msg) {
-	    	node.log(JSON.stringify(config));
 	    	var auth = config.auth.split(':');
 	    	var topic = config.topicType=='str'?config.topic:(msg[config.topic]||'');
 	    	var payload = config.payloadType=='str'?config.payload:(msg[config.payload]||'');
@@ -36,5 +35,5 @@ module.exports = function(RED) {
 			});
         });
     }
-    RED.nodes.registerType("publish api",NetpiePublishAPINode);
+    RED.nodes.registerType("rest publish",NetpieRESTPublishNode);
 }

@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('publish api',{
+    RED.nodes.registerType('rest publish',{
         category: 'netpie',
         color: '#dddd88',
         defaults: {
-            name :  {value: "publish api"}, 
+            name :  {value: "rest publish"}, 
             appid: {value: ""},
             auth: {value: ""},
             topic: {value: ""},
@@ -16,7 +16,7 @@
         icon: "netpie.png",
         align: "right",
         label: function() {
-            return this.name||"publish api";
+            return this.name||"rest publish";
         },
 
         oneditprepare: function() {
@@ -89,7 +89,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="publish api">
+<script type="text/x-red" data-template-name="rest publish">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -119,6 +119,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="publish api">
-    <p>NETPIE Publish API node</p>
+<script type="text/x-red" data-help-name="rest publish">
+    <p>NETPIE REST Publish node</p>
 </script>
