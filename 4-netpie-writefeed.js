@@ -10,21 +10,20 @@ module.exports = function(RED) {
 		}
 	}
 
-    function NetpieRESTChatNode(config) {
+    function NetpieWriteFeedNode(config) {
     	var rest = require('restler');
-
         RED.nodes.createNode(this, config);
         var node = this;
 	
 	    node.on('input', function(msg) {
-	    	var auth = config.auth.split(':');
-	    	var alias = config.aliasType=='str'?config.alias:(msg[config.alias]||'');
-	    	var payload = config.payloadType=='str'?config.payload:(msg[config.payload]||'');
-			rest.put('https://api.netpie.io/microgear/'+config.appid+'/'+alias, {
+	    	var payload = config.dataType=='str'?config.data:(msg[config.data]||'');
+
+console.log('https://api.netpie.io/feed/'+config.feedid+'?apikey='+config.apikey);
+console.log("data="+payload.toString());
+
+			rest.put('https://api.netpie.io/feed/'+config.feedid+'?apikey='+config.apikey, {
 				headers: {"Content-Type": "text/plain"},
-				username: auth[0],
-				password: auth[1],
-				data: payload.toString()
+				data: {data: payload.toString()}
 			}).on('complete', function(data) {
 				var msg = {
 	        		topic : "&status",
@@ -35,5 +34,5 @@ module.exports = function(RED) {
 			});
         });
     }
-    RED.nodes.registerType("rest chat",NetpieRESTChatNode);
+    RED.nodes.registerType("writefeed",NetpieWriteFeedNode);
 }
