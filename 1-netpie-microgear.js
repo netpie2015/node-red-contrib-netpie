@@ -39,13 +39,19 @@ module.exports = function(RED) {
             node.send(msg);
         });
 
-        node.mg.connect(config.appid);
+        if (config.activate) {
+            node.mg.connect(config.appid);
+        }
+        else {
+            node.status({fill: 'grey', shape: 'ring', text: 'inactive'});
+        }
 
         node.on('input', function(msg) {
         	var topic = '';
+            var retained = config.retainType== 'msg'? msg[config.retain] : config.retain;
         	if (msg.topic && msg.payload) {
         		topic = msg.topic;
-        		node.mg.publish(topic, msg.payload);
+        		node.mg.publish(topic, msg.payload, retained);
         	}
         });
 
