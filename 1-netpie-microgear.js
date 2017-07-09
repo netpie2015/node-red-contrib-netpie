@@ -48,7 +48,7 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
         	var topic = '';
-            var retained = config.retainType== 'msg'? msg[config.retain] : config.retain;
+            var retained = config.retainType== 'msg'? msg[config.retain]=='true' : config.retain=='true';
         	if (msg.topic && msg.payload) {
         		topic = msg.topic;
         		node.mg.publish(topic, msg.payload, retained);
