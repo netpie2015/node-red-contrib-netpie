@@ -1,8 +1,8 @@
 {
-  "name": "netpie-microgear",
+  "name": "nodered-netpie",
   "version": "1.0.0",
-  "description": "node-red node to connect to netpie",
-  "main": "netpie-microgear.js",
+  "description": "Node-RED node module providing NETPIE connectivities as microgear and REST client",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
