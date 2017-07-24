@@ -1,8 +1,10 @@
 # nodered-netpie
-Node-RED node module providing NETPIE connectivities as microgear and REST client.
+A Node-RED node providing NETPIE connectivities as microgear and REST client.
 
 ## Installation
-Run the following command in your Node-RED user directory, typically ~/.node-red/nodes
+This module requires Node-RED. Please visit [Node-RED project page](https://nodered.org) for the instruction on how to install Node-RED.
+
+To install node-red-contrib-netpie module, run the following command in your Node-RED user directory, typically ~/.node-red/nodes
 ```
 npm install nodered-netpie
 ```
