@@ -6,7 +6,7 @@ This module requires Node-RED. Please visit [Node-RED project page](https://node
 
 To install node-red-contrib-netpie module, run the following command in your Node-RED user directory, typically ~/.node-red/nodes
 ```
-npm install nodered-netpie
+npm install node-red-contrib-netpie
 ```
 
 ## Screen shot
