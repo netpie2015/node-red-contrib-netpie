@@ -10,4 +10,4 @@ npm install node-red-contrib-netpie
 ```
 
 ## Screen shot
-![image](https://github.com/chavee/nodered-netpie/blob/master/docs/images/screen.png)
+![image](https://github.com/chavee/nodered-netpie/blob/master/docs/images/screen.png?raw=true)
