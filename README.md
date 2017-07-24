@@ -1,4 +1,4 @@
-# nodered-netpie
+# node-red-contrib-netpie
 A Node-RED node providing NETPIE connectivities as microgear and REST client.
 
 ## Installation
