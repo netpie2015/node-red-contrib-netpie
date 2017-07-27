@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-netpie",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A Node-RED node to connect to NETPIE.io platform",
   "main": "",
   "scripts": {

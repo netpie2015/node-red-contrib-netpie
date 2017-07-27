@@ -17,9 +17,7 @@ module.exports = function(RED) {
         });
 
         var path = RED.settings.get('userDir') || require('os').homedir()+'/.node-red' ;
-console.log(path);
         node.cachePath = path+'/'+'microgear-'+node.id+'.token';
-console.log(node.cachePath);
         node.mg.setCachePath(node.cachePath);
         node.log("path = "+node.cachePath);
 
