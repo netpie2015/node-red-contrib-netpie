@@ -40,6 +40,10 @@ module.exports = function(RED) {
             node.send(msg);
         });
 
+        node.mg.on('error', function(msg) {
+             node.error(msg);
+        });
+
         if (config.activate) {
             node.mg.connect(config.appid);
         }
