@@ -82,24 +82,32 @@
 <script type="text/x-red" data-help-name="microgear">
     <p>A microgear node to connect to NETPIE.io.</p>
  
+     <h3>Inputs</h3>
+   <dl class="message-properties">
+        <dt>topic<span class="property-type">string</span></dt>
+        <dd>A Topic to be subscribed. If there are many, separate them by comma.</dd>
+
+        <dt>payload<span class="property-type">string</span></dt>
+        <dd>The message payload.</dd>
+    </dl>
+
     <h3>Outputs</h3>
     <dl class="message-properties">
-        <dt>topic<span class="property-type">string</span></dt>
-        <dd>The topic of the incoming message.</dd>
+        <dt>msg.topic<span class="property-type">string</span></dt>
+        <dd>
+        This field describes the destination of a message. There are two cases here:<br>
+        <ul>
+            <li>To publish to a topic: use the string begin with / e.g.
+                <code>/myhome/bedroom/temp</code></li>
+            <li>To chat to a device: use the plain string without / e.g.
+                <code>tempsensor</code></li>
+        </ul>
+        </dd>
 
-        <dt>payload<span class="property-type">string</span></dt>
+        <dt>msg.payload<span class="property-type">string</span></dt>
         <dd>The message payload.</dd>
     </dl>
- 
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>topic<span class="property-type">string</span></dt>
-        <dd>The target topic to publish a message.</dd>
-
-        <dt>payload<span class="property-type">string</span></dt>
-        <dd>The message payload.</dd>
-    </dl>
- 
+   
     <h3>Details</h3>
     <p>The microgear node accepts both input and output. When an incoming message arrives, it trigger an input.  When the node is injected with a message, it publishes message to NETPIE. The retain option can be statically set inside of the node or can be determined by a message field.</p>
 </script>
