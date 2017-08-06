@@ -12,7 +12,7 @@
             payloadType: {value: ""}
         },
         inputs:1,
-        outputs:1,
+        outputs:0,
         icon: "netpie.png",
         align: "right",
         label: function() {
@@ -141,10 +141,10 @@
     <p>Send a chat message via REST API to a specific device. The target alias can be specified in msg.topic or manually fixed as a string in the node configuration.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>The message payload. Will be overrided if the payload type in the node is set to string.</dd>
         <dt class="optional">payload<span class="property-type">string</span></dt>
         <dd>The target alias. Will be overrided if the alias type in the nodeis is set to string.</dd>
-        <dt class="optional">topic <span class="property-type">string</span></dt>
-        <dd>The message payload. Will be overrided if the payload type in the node is set to string</dd>
     </dl>
     <h3>Details</h3>
     <p>The rest chat node can be pressed to initiate a chat message when configured with a specific alias and payload value.</p>
