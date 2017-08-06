@@ -37,6 +37,7 @@
                 typeField: $("#node-input-topicType"),
                 types:['msg','str']
             });
+            $("#node-input-topic").typedInput('type',this.topicType);
 
             if (this.payloadType == null) {
                 if (this.payload == "") {

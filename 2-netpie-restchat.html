@@ -8,7 +8,7 @@
             auth: {value: ""},
             alias: {value: ""},
             aliasType: {value: ""},
-            payload: {value: "", validate: RED.validators.typedInput("payloadType")},
+            payload: {value: ""},
             payloadType: {value: ""}
         },
         inputs:1,
@@ -37,6 +37,7 @@
                 typeField: $("#node-input-aliasType"),
                 types:['msg','str']
             });
+            $("#node-input-alias").typedInput('type',this.aliasType);
 
             if (this.payloadType == null) {
                 if (this.payload == "") {
