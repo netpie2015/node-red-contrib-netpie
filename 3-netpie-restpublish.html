@@ -65,6 +65,10 @@
                 if (this.changed) {
                     return RED.notify(RED._("notification.warning", {message:RED._("notification.warnings.undeployedChanges")}),"warning");
                 }
+                if ((this.payloadType=='str' && !this.payload) || this.payloadType=='msg' || this.aliasType=='msg') {
+                    return RED.notify(RED._("notification.warning", {message:RED._("notification.warnings.invalidMessage")}),"warning");
+                }
+
                 var label = (this.name||this.payload);
                 var node = this;
                 $.ajax({
