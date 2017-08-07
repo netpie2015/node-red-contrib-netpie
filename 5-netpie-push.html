@@ -1,0 +1,151 @@
+<script type="text/javascript">
+    RED.nodes.registerType('push',{
+        category: 'netpie',
+        color: '#99cc99',
+        defaults: {
+            name :  {value: "push"}, 
+            auth: {value: ""},
+
+            target: {value: ""},
+            targetType: {value: "1"},
+
+            title: {value: ""},
+            titleType: {value: ""},
+            payload: {value: ""},
+            payloadType: {value: ""}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "netpie.png",
+        align: "right",
+        label: function() {
+            return this.name||"push";
+        },
+
+        oneditprepare: function() {
+
+            if (this.titleType == null) {
+                if (this.title == "") {
+                    this.titleType = "str";
+                } else {
+                    this.titleType = "msg";
+                }
+            } else if (this.titleType === 'string' || this.titleType === 'none') {
+                this.titleType = "str";
+            }
+            $("#node-input-titleType").val(this.titleType);
+
+            $("#node-input-title").typedInput({
+                default: 'msg',
+                typeField: $("#node-input-titleType"),
+                types:['msg','str']
+            });
+            $("#node-input-title").typedInput('type',this.titleType);
+
+            if (this.payloadType == null) {
+                if (this.payload == "") {
+                    this.payloadType = "str";
+                } else {
+                    this.payloadType = "msg";
+                }
+            } else if (this.payloadType === 'string' || this.payloadType === 'none') {
+                this.payloadType = "str";
+            }
+            $("#node-input-payloadType").val(this.payloadType);
+
+            $("#node-input-payload").typedInput({
+                default: 'msg',
+                typeField: $("#node-input-payloadType"),
+                types:['msg','str']
+            });
+            $("#node-input-payload").typedInput('type',this.payloadType);
+        },
+
+        label: function() {
+            if (this.name) return this.name;
+            else {
+                var name = 'push';
+                if (this.payloadType=='str' && this.payload) name += ' "'+this.payload+'"';
+                return name;
+            }
+        },
+
+        button: {
+            enabled: function() {
+                return !this.changed
+            },
+            onclick: function() {
+                if (this.changed) {
+                    return RED.notify(RED._("notification.warning", {message:RED._("notification.warnings.undeployedChanges")}),"warning");
+                }
+                var label = (this.name||this.payload);
+                var node = this;
+                $.ajax({
+                    url: "inject/"+this.id,
+                    type:"POST",
+                    success: function(resp, textStatus, xhr) {
+                        RED.notify(node._("inject.success",{label:label}),"success");
+                    },
+                    error: function(jqXHR,textStatus,errorThrown) {
+                        if (jqXHR.status == 404) {
+                            RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.not-deployed")}),"error");
+                        } else if (jqXHR.status == 500) {
+                            RED.notify(node._("common.notification.error",{message:node._("inject.errors.failed")}),"error");
+                        } else if (jqXHR.status == 0) {
+                            RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.no-response")}),"error");
+                        } else {
+                            RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.unexpected",{status:jqXHR.status,message:textStatus})}),"error");
+                        }
+                    }
+                });
+            }
+        }
+
+    });
+</script>
+
+<script type="text/x-red" data-template-name="push">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-auth"><i class="icon-cog"></i> Auth</label>
+        <input type="text" id="node-input-auth" placeholder="KEY:SECRET">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-targetType"><i class="icon-cog"></i> Push to</label>
+        <select id="node-input-targetType" style="width:125px !important">
+            <option value="1" SELECTED>AppID owner</option>
+        </select>&nbsp;
+        <input type="text" id="node-input-target" placeholder="AppID" style="width:190px !important">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-title"><i class="icon-cog"></i> Title</label>
+        <input type="text" id="node-input-title" placeholder="">
+        <input type="hidden" id="node-input-titleType">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-payload"><i class="icon-cog"></i> Payload</label>
+        <input type="text" id="node-input-payload" placeholder="">
+        <input type="hidden" id="node-input-payloadType">
+
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="push">
+    <p>Send a push notification to the owner of the App ID. In order to receive a push message, the user must install NETPIE mobile app. The message title and payload can be specified in msg.topic and msg.payload or can be manually fixed as strings in the node configuration.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>The message title. Will be overrided if the type in the node is set to string.</dd>
+        <dt class="optional">payload<span class="property-type">string</span></dt>
+        <dd>The message payload. Will be overrided if the type in the node is set to string.</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>The push node can be pressed to initiate a push notification when configured with a specific title and payload value.</p>
+</script>
