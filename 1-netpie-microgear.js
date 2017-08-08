@@ -53,7 +53,13 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
         	var topic = '';
-            var retained = config.retainType== 'msg'? msg[config.retain]=='true' : config.retain=='true';
+            var retained = false;
+
+            if (config.retainType== 'msg') {
+                if (config.retain && msg[config.retain] && msg[config.retain]=='true') retained = true;
+            }
+            else retained = (config.retain=='true');
+
         	if (msg.topic && msg.payload) {
                 if (msg.topic.substr(0,1)=='/') {
             		topic = msg.topic;
