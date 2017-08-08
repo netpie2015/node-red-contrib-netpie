@@ -44,7 +44,7 @@ module.exports = function(RED) {
              node.error(msg);
         });
 
-        if (config.activate) {
+        if (config.active) {
             node.mg.connect(config.appid);
         }
         else {
@@ -56,7 +56,7 @@ module.exports = function(RED) {
             var retained = false;
 
             if (config.retainType== 'msg') {
-                if (config.retain && msg[config.retain] && msg[config.retain]=='true') retained = true;
+                    if (config.retain && msg[config.retain] && msg[config.retain]=='true') retained = true;
             }
             else retained = (config.retain=='true');
 

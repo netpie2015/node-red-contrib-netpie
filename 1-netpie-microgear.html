@@ -9,7 +9,7 @@
             secret: {value: ""},  
             alias: {value: ""},  
             topics: {value: "/#"},
-            activate: {value: true},
+            active: {value: true},
             retain : {value: false, validate: RED.validators.typedInput("retainType")},
             retainType: {value: "bool"}
         },
@@ -37,8 +37,8 @@
 <script type="text/x-red" data-template-name="microgear">
 
     <div class="form-row">
-        <label for="node-input-activate"><i class="icon-cog"></i> Activate</label>
-        <input type="checkbox" id="node-input-activate" style="margin-left:10px; vertical-align:top; width:auto;">
+        <label for="node-input-active"><i class="icon-cog"></i> Active</label>
+        <input type="checkbox" id="node-input-active" style="margin-left:10px; vertical-align:top; width:auto;">
     </div>
 
     <div class="form-row">
