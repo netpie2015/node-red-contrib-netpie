@@ -71,11 +71,13 @@ module.exports = function(RED) {
         	}
         });
 
-		node.on('close', function(removed, done) {
+        node.on('close', function(removed, done) {
             function fanalize() {
                 setTimeout(function () {
                     delete node.mg;
-                    done();
+                    if (typeof(done)=='function') {
+                        done();
+                    }
                 }, 500);
             }
             node.mg.disconnect();
