@@ -1,4 +1,5 @@
 <script type="text/javascript">
+
     RED.nodes.registerType('push',{
         category: 'netpie',
         color: '#99cc99',
@@ -11,8 +12,13 @@
 
             title: {value: ""},
             titleType: {value: ""},
-            payload: {value: ""},
-            payloadType: {value: ""}
+            body: {value: ""},
+            bodyType: {value: ""},
+
+            appGroup: {value: ""},
+            mobileAppID: {value: ""},
+            mobileAppTopic: {value: ""},
+            sound: {value: "default"},
         },
         inputs:1,
         outputs:0,
@@ -33,6 +39,23 @@
             } else if (this.titleType === 'string' || this.titleType === 'none') {
                 this.titleType = "str";
             }
+
+            $("#node-input-targetType").on('focus', function () {
+                //previous = this.value
+            }).change(function(){
+                switch(this.value) {
+                    case '2' :  $("#push-mode-custommobileapp").hide();
+                                $("#push-mode-appgroup").show();
+                                break;
+                    case '3' :  $("#push-mode-custommobileapp").show();
+                                $("#push-mode-appgroup").hide();
+                                break;
+                    default :   $("#push-mode-custommobileapp").hide();
+                                $("#push-mode-appgroup").hide();
+                                break;
+                }
+            }) ;          
+
             $("#node-input-titleType").val(this.titleType);
 
             $("#node-input-title").typedInput({
@@ -42,30 +65,30 @@
             });
             $("#node-input-title").typedInput('type',this.titleType);
 
-            if (this.payloadType == null) {
-                if (this.payload == "") {
-                    this.payloadType = "str";
+            if (this.bodyType == null) {
+                if (this.bodyType == "") {
+                    this.bodyType = "str";
                 } else {
-                    this.payloadType = "msg";
+                    this.bodyType = "msg";
                 }
-            } else if (this.payloadType === 'string' || this.payloadType === 'none') {
-                this.payloadType = "str";
+            } else if (this.bodyType === 'string' || this.bodyType === 'none') {
+                this.bodyType = "str";
             }
-            $("#node-input-payloadType").val(this.payloadType);
+            $("#node-input-bodyType").val(this.bodyType);
 
-            $("#node-input-payload").typedInput({
+            $("#node-input-body").typedInput({
                 default: 'msg',
-                typeField: $("#node-input-payloadType"),
+                typeField: $("#node-input-bodyType"),
                 types:['msg','str']
             });
-            $("#node-input-payload").typedInput('type',this.payloadType);
+            $("#node-input-body").typedInput('type',this.bodyType);
         },
 
         label: function() {
             if (this.name) return this.name;
             else {
                 var name = 'push';
-                if (this.payloadType=='str' && this.payload) name += ' "'+this.payload+'"';
+                if (this.bodyType =='str' && this.body) name += ' "'+this.body+'"';
                 return name;
             }
         },
@@ -78,11 +101,11 @@
                 if (this.changed) {
                     return RED.notify(RED._("notification.warning", {message:RED._("notification.warnings.undeployedChanges")}),"warning");
                 }
-                if ((this.payloadType=='str' && !this.payload) || this.payloadType=='msg' || this.titleType=='msg') {
+                if ((this.bodyType=='str' && !this.body) || this.bodyType=='msg' || this.titleType=='msg') {
                     return RED.notify(RED._("notification.warning", {message:RED._("notification.warnings.invalidMessage")}),"warning");
                 }
 
-                var label = (this.name||this.payload);
+                var label = (this.name||this.body);
                 var node = this;
                 $.ajax({
                     url: "inject/"+this.id,
@@ -122,10 +145,27 @@
     <div class="form-row">
         <label for="node-input-targetType"><i class="icon-cog"></i> Push to</label>
         <select id="node-input-targetType" style="width:125px !important">
-            <option value="1" SELECTED>AppID owner</option>
-        </select>&nbsp;
-        <input type="text" id="node-input-target" placeholder="AppID" style="width:190px !important">
+            <option value="1">AppID owner</option>
+            <option value="2">AppID group</option>
+            <option value="3">Custom mobile app</option>
+        </select>
     </div>
+
+    <div id="push-mode-appgroup">
+        <div class="form-row">
+            <label for="node-input-appGroup"><i class=""></i></label>
+            <input type="text" id="node-input-appGroup" placeholder="AppID group">
+        </div>
+    </div>
+
+    <div id="push-mode-custommobileapp">
+        <div class="form-row">
+            <label for="node-input-mobileAppID"><i class=""></i></label>
+            <input type="text" id="node-input-mobileAppID" placeholder="MobileAppID" style="width:119px">
+            <input type="text" id="node-input-mobileAppTopic" placeholder="Topic" style="width:200px">
+        </div>
+    </div>
+
 
     <div class="form-row">
         <label for="node-input-title"><i class="icon-cog"></i> Title</label>
@@ -134,22 +174,27 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-payload"><i class="icon-cog"></i> Payload</label>
-        <input type="text" id="node-input-payload" placeholder="">
-        <input type="hidden" id="node-input-payloadType">
-
+        <label for="node-input-body"><i class="icon-cog"></i> Body</label>
+        <input type="text" id="node-input-body" placeholder="">
+        <input type="hidden" id="node-input-bodyType">
     </div>
+
+    <div class="form-row">
+        <label for="node-input-sound"><i class="icon-cog"></i> Sound</label>
+        <input type="text" id="node-input-sound" placeholder="default">
+    </div>
+
 </script>
 
 <script type="text/x-red" data-help-name="push">
-    <p>Send a push notification to the owner of the App ID. In order to receive a push message, the user must install NETPIE mobile app. The message title and payload can be specified in msg.topic and msg.payload or can be manually fixed as strings in the node configuration.</p>
+    <p>Send a push notification to the owner of the App ID. In order to receive a push message, the user must install NETPIE mobile app. The message title and body can be specified in msg.topic and msg.payload or can be manually fixed as strings in the node configuration.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt class="optional">topic <span class="property-type">string</span></dt>
         <dd>The message title. Will be overrided if the type in the node is set to string.</dd>
-        <dt class="optional">payload<span class="property-type">string</span></dt>
-        <dd>The message payload. Will be overrided if the type in the node is set to string.</dd>
+        <dt class="optional">body<span class="property-type">string</span></dt>
+        <dd>The message body. Will be overrided if the type in the node is set to string.</dd>
     </dl>
     <h3>Details</h3>
-    <p>The push node can be pressed to initiate a push notification when configured with a specific title and payload value.</p>
+    <p>The push node can be pressed to initiate a push notification when configured with a specific title and body value.</p>
 </script>

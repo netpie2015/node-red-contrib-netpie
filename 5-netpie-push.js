@@ -18,24 +18,62 @@ module.exports = function(RED) {
 	
 	    node.on('input', function(msg) {
 	    	var auth = config.auth.split(':');
-	    	var title = config.titleType=='str'?config.title:(msg[config.title]||'');
-	    	var payload = config.payloadType=='str'?config.payload:(msg[config.payload]||'');
-	    	var titlearg = title?'?title='+title:'';
+	    	var body = config.bodyType=='str'?config.body:(msg[config.body]||'');
 
-	    	if (payload) {
-				rest.post('https://api.netpie.io/push/owner/'+config.target+titlearg, {
-					headers: {"Content-Type": "text/plain"},
-					username: auth[0],
-					password: auth[1],
-					data: payload.toString()
-				}).on('complete', function(data) {
-					var msg = {
-		        		topic : "&status",
-		        		payload : jsonparse(data),
-				        raw_payload: data
-		        	};
-		            node.send(msg);
-				});
+			var restbody = {
+				body: body.toString(),
+				title: config.titleType=='str'?config.title:(msg[config.title]||''),
+				sound: config.sound || 'default'
+			}
+
+	    	switch (config.targetType) {
+	    		case '1' :
+			    	if (body) {
+						rest.put("https://api.netpie.io/push/owner", {
+							headers: {"Content-Type": "text/plain"},
+							username: auth[0],
+							password: auth[1],
+							data: JSON.stringify(restbody)
+						}).on('complete', function(data) {
+							var msg = {
+				        		payload : data,
+				        	};
+				            node.send(msg);
+						});
+					}
+					break;
+
+	    		case '2' :
+			    	if (body) {
+						rest.put("https://api.netpie.io/push/group/"+config.appGroup, {
+							headers: {"Content-Type": "text/plain"},
+							username: auth[0],
+							password: auth[1],
+							data: JSON.stringify(restbody)
+						}).on('complete', function(data) {
+							var msg = {
+				        		payload : data,
+				        	};
+				            node.send(msg);
+						});
+					}
+					break;
+
+	    		case '3' :
+			    	if (body) {
+						rest.put("https://api.netpie.io/push/mobiletopic/"+config.mobileAppID+'/'+config.mobileAppTopic, {
+							headers: {"Content-Type": "text/plain"},
+							username: auth[0],
+							password: auth[1],
+							data: JSON.stringify(restbody)
+						}).on('complete', function(data) {
+							var msg = {
+				        		payload : data,
+				        	};
+				            node.send(msg);
+						});
+					}
+					break;
 			}
         });
     }
