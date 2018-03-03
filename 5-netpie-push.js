@@ -61,7 +61,7 @@ module.exports = function(RED) {
 
 	    		case '3' :
 			    	if (body) {
-						rest.put("https://api.netpie.io/push/mobiletopic/"+config.mobileAppID+'/'+config.mobileAppTopic, {
+						rest.put("https://api.netpie.io/push/mobiletopic/"+config.mobileAppKey+'/'+config.mobileAppTopic, {
 							headers: {"Content-Type": "text/plain"},
 							username: auth[0],
 							password: auth[1],

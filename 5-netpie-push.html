@@ -16,7 +16,7 @@
             bodyType: {value: ""},
 
             appGroup: {value: ""},
-            mobileAppID: {value: ""},
+            mobileAppKey: {value: ""},
             mobileAppTopic: {value: ""},
             sound: {value: "default"},
         },
@@ -144,7 +144,7 @@
 
     <div class="form-row">
         <label for="node-input-targetType"><i class="icon-cog"></i> Push to</label>
-        <select id="node-input-targetType" style="width:125px !important">
+        <select id="node-input-targetType" style="width:160px !important">
             <option value="1">AppID owner</option>
             <option value="2">AppID group</option>
             <option value="3">Custom mobile app</option>
@@ -160,8 +160,8 @@
 
     <div id="push-mode-custommobileapp">
         <div class="form-row">
-            <label for="node-input-mobileAppID"><i class=""></i></label>
-            <input type="text" id="node-input-mobileAppID" placeholder="MobileAppID" style="width:119px">
+            <label for="node-input-mobileAppKey"><i class=""></i></label>
+            <input type="text" id="node-input-mobileAppKey" placeholder="MobileAppKey" style="width:119px">
             <input type="text" id="node-input-mobileAppTopic" placeholder="Topic" style="width:200px">
         </div>
     </div>
