@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/netpieio/node-red-contrib-netpie",
   "dependencies": {
-    "microgear": "^0.7.7",
+    "microgear": "^0.8.1",
     "restler": "^3.4.0"
   },
   "node-red": {
